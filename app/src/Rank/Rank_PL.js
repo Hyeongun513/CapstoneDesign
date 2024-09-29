@@ -48,7 +48,6 @@ const Rank_PL = () => {
         </View>
 
         {/* 한줄씩 출력 */}
-        {/* position:순위, team.name:팀명, points:승점, playedGames:경기수, goalDifference:골득실, goalsFor:득점, goalsAgainst:실점 */}
         <FlatList
           data={standings}
           keyExtractor={(item) => item.team.id.toString()}
@@ -56,7 +55,7 @@ const Rank_PL = () => {
             <TouchableOpacity 
               style={styles.rankItem}
               // onPress={() => router.navigate('./TeamDetails', { teamId: item.team.id })}
-              onPress={() => router.push(`./TeamDetails?teamId=${item.team.id}`)}
+              onPress={() => router.push(`../Team/TeamDetails_Test?teamId=${item.team.id}`)}
             >
 
             <View style={styles.rankItem}>
@@ -175,11 +174,16 @@ const styles = StyleSheet.create({
 
 export default Rank_PL;
 
-// won: 팀이 이긴 경기 수
-// draw: 팀이 비긴 경기 수
-// lost: 팀이 패배한 경기 수
-// goalsFor: 팀이 득점한 총 골 수
-// goalsAgainst: 팀이 실점한 총 골 수
+
+// position:순위
+// team.name:팀명
+// points:승점
+// playedGames:경기수
+// goalDifference:골득실
+// goalsFor:득점
+// goalsAgainst:실점
+// won: 승리
+// draw: 무승부
+// lost: 패배
 // form: 팀의 최근 경기 성적을 나타내는 문자열 (최근 경기의 승/패 기록)
 // goalDifference: 팀의 득실차
-// playedGames: 치른 경기 수

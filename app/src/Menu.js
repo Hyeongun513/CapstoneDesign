@@ -34,7 +34,7 @@ const Menu = () => {
                 borderRadius: 10,
                 margin: 10,
                 marginTop: 20,
-                }} onPress={() => { router.replace('./Test'); }}>
+                }} onPress={() => { router.replace('./Schedule/MatchSchedule'); }}>
                 <Text style={{fontSize: 25}}>주요 일정</Text>
                 </TouchableOpacity>
 
@@ -48,7 +48,7 @@ const Menu = () => {
                 borderRadius: 10,
                 margin: 10,
                 marginTop: 20,
-                }} onPress={() => { router.replace('./Rank/Rank_Home'); }}>
+                }} onPress={() => { router.navigate('./Test'); }}>
                 <Text style={{fontSize: 25}}>선수 데이터</Text>
                 </TouchableOpacity>
 
@@ -67,7 +67,7 @@ const Menu = () => {
                 </TouchableOpacity>
             </View>
             <View style={{flex: 1, flexDirection:'column-reverse', alignItems: 'center'}}>
-                <Link href='/AllQ'>모든 퀴즈 풀기</Link>
+                <Link href=''>링크Link</Link>
             </View>
         </View>
     );
