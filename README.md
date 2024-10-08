@@ -51,7 +51,6 @@ Join our community of developers creating universal apps.
 
 ## 업로드 현황
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- 1차 업로드 : 24.09.13
+- 2차 업로드 : 24.09.29
+- 3차 업로드 : 24.10.08
