@@ -34,7 +34,7 @@ const Menu = () => {
                 borderRadius: 10,
                 margin: 10,
                 marginTop: 20,
-                }} onPress={() => { router.replace('./Schedule/MatchSchedule'); }}>
+                }} onPress={() => { router.replace('./Schedule/ScheduleHome'); }}>
                 <Text style={{fontSize: 25}}>주요 일정</Text>
                 </TouchableOpacity>
 
@@ -49,7 +49,7 @@ const Menu = () => {
                 margin: 10,
                 marginTop: 20,
                 }} onPress={() => { router.navigate('./Test'); }}>
-                <Text style={{fontSize: 25}}>선수 데이터</Text>
+                <Text style={{fontSize: 25}}>데이터 센터</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{

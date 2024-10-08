@@ -6,7 +6,7 @@ import Rank_PD from './Rank_PD';
 import Rank_BL1 from './Rank_BL1';
 import RANK_League from './Rank_League';
 
-// PL(피엘), BL1(분데스), PD(라리가), FL1(리그앙), SA(세리에) 
+// PL(피엘), BL1(분데스), PD(라리가), FL1(리그앙), SA(세리에)
 const Rank_Home = () => {
     const [League, setLeague] = useState(0);
     
