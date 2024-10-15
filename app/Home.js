@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import { Text, Dimensions } from "react-native";
+import { Text, Dimensions, Image } from "react-native";
 import { Link, router } from "expo-router";
+import LoadingBar1 from "../assets/images/Loading1.png";
+import LoadingBar2 from "../assets/images/Loading2.png";
+import LoadingBar3 from "../assets/images/Loading3.png";
+import LoadingBar4 from "../assets/images/Loading4.png";
 
 
 const Container = styled.View`
@@ -21,13 +25,13 @@ const Home = () => {
 
     PrintLoading = () => {
         if (time == 3) {
-            return <Text> time : 3</Text>
+            return <Image source={LoadingBar2} style={{width: windoWidth*0.9, height: windoWidth*0.9*0.1175}}/>
         } else if (time == 2) {
-            return <Text> time : 2</Text>
+            return <Image source={LoadingBar3} style={{width: windoWidth*0.9, height: windoWidth*0.9*0.1175}}/>
         } else if (time == 1) {
-            return <Text> time : 1</Text>
+            return <Image source={LoadingBar4} style={{width: windoWidth*0.9, height: windoWidth*0.9*0.1175}}/>
         } else {
-            return <Text> time : 0</Text>
+            return <Image source={LoadingBar1} style={{width: windoWidth*0.9, height: windoWidth*0.9*0.1175}}/>
         };
     };
 

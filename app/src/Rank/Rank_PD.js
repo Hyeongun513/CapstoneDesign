@@ -35,11 +35,24 @@ const Rank_PD = () => {
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
+  const Rank_Color = ( rank ) => { //챔스, 유로파, 강등 색상 출력
+    if ( rank <= 4 ) {
+      return <View style={{backgroundColor:'blue', width:5, height:30, marginLeft: -5}}/>
+    } else if ( rank == 5 || rank == 6 ) {
+      return <View style={{backgroundColor:'orange', width:5, height:30, marginLeft: -5}}/>
+    } else if ( rank >= 18 ) {
+      return <View style={{backgroundColor:'red', width:5, height:30, marginLeft: -5}}/>
+    } else {
+      return <View style={{backgroundColor:'gray', width:5, height:30, marginLeft: -5}}/>
+    }
+  };
+
   const Print_Rank = () => {
     return (
       <View>
         {/* 표 제목란 */}
         <View style={styles.tableHeader}>
+          <View style={{width:'1%'}}/>
           <Text style={[styles.headerText, { width: '10%' }]}>순위</Text>
           <Text style={[styles.headerText, { width: '50%' }]}>팀명</Text>
           <Text style={[styles.headerText, { width: '15%' }]}>경기수</Text>
@@ -60,15 +73,19 @@ const Rank_PD = () => {
 
             <View style={styles.rankItem}>
 
-              <View style={{ width: '10%', alignItems: 'center' }}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.position}</Text>
+              <View style={{ width: '1%', alignItems: 'center', flexDirection: 'row'}}>
+                {/* {item.position <= 4 ? <View style={{backgroundColor:'blue', width:5, height:30}}/> : <View style={{backgroundColor:'grey', width:5, height:30}}/>} */}
+                {Rank_Color(item.position)}
+              </View>
+              <View style={{ width: '9%', alignItems: 'center', flexDirection: 'row'}}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold' }}> {item.position} </Text>
               </View>
               <View style={{ width: '50%', flexDirection:'row' }}>
                 <Image
                   source={{ uri: item.team.crest }}  // 팀 로고 URL
                   style={styles.teamLogo}  // 스타일 지정
                 />
-                <Text style={{ fontSize: 14 }}>{item.team.name}</Text>
+                <Text style={{ fontSize: 14, fontWeight: item.position == 1 ? 'bold' : '' }}>{item.team.name}</Text>
               </View>
               <View style={{ width: '15%', alignItems: 'center' }}>
                 <Text style={{ fontSize: 16 }}>{item.playedGames}</Text>
@@ -86,33 +103,14 @@ const Rank_PD = () => {
             </View>
             </TouchableOpacity>
           )}
-          contentContainerStyle={{ paddingBottom: 200 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
         />
-      </View>
-    );
-  };
-
-  const Print_Button = () => {
-    return (
-      <View>
-        <Text> ================================== </Text>
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => { router.replace('./Rank_Home') }}
-          >
-            <Text style={{ fontSize: 15 }}>메뉴화면</Text>
-          </TouchableOpacity>
-          <Text> 리그 : PD </Text>
-        </View>
-        <Text> ================================= </Text>
       </View>
     );
   };
 
   return (
     <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
-      {Print_Button()}
       {Print_Rank()}
     </View>
   );
@@ -124,22 +122,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#ddd',
     paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderBottomWidth: 2,
+    paddingHorizontal: 5,
+    borderTopWidth: 3,
+    borderTopColor: '#aaa',
+    borderBottomWidth: 3,
     borderBottomColor: '#aaa',
   },
   headerText: {
     fontSize: 16,
     fontWeight: 'bold',
-    // width: '20%',
     textAlign: 'center',
   },
   rankItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 5,
     backgroundColor: '#f8f8f8',
     marginVertical: 5,
     borderRadius: 10,
@@ -158,13 +157,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   teamColumn: {
-    flexDirection: 'row',  // 팀명과 로고를 가로로 정렬
-    alignItems: 'center',  // 수직 가운데 정렬
+    flexDirection: 'row', 
+    alignItems: 'center',
     width: '50%',
   },
   teamLogo: {
-    width: 30,  // 로고 너비
-    height: 30,  // 로고 높이
+    width: 30,
+    height: 30, 
     marginRight: 10,  // 팀명과 로고 사이 여백
   },
   teamText: {

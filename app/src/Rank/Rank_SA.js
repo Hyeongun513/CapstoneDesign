@@ -5,13 +5,13 @@ import { Link, router } from "expo-router";
 
 // PL(피엘), BL1(분데스), PD(라리가), FL1(리그앙), SA(세리에) 
 
-const Rank_BL1 = () => {
+const Rank_SA = () => {
   const [standings, setStandings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const API_Code = 'https://api.football-data.org/v4/competitions/BL1/standings';
+    const API_Code = 'https://api.football-data.org/v4/competitions/SA/standings';
     const fetchStandings = async () => {
       try {
         const response = await axios.get(API_Code, {
@@ -40,7 +40,7 @@ const Rank_BL1 = () => {
       return <View style={{backgroundColor:'blue', width:5, height:30, marginLeft: -5}}/>
     } else if ( rank == 6 ) {
       return <View style={{backgroundColor:'orange', width:5, height:30, marginLeft: -5}}/>
-    } else if ( rank >= 17 ) {
+    } else if ( rank >= 18 ) {
       return <View style={{backgroundColor:'red', width:5, height:30, marginLeft: -5}}/>
     } else {
       return <View style={{backgroundColor:'gray', width:5, height:30, marginLeft: -5}}/>
@@ -170,7 +170,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-export default Rank_BL1;
+
+export default Rank_SA;
 
 
 // position:순위

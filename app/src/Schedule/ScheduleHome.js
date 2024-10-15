@@ -18,14 +18,14 @@ const ScheduleHome = () => {
     const todayYear = today.getFullYear().toString();
     // const todayMonth = '0' + today.getMonth().toString().slice(-2); //10월인 경우 09로 표기(-1)
     const todayMonth = ('0' + (today.getMonth()+1).toString()).slice(-2); //0부터 시작하는 인덱스에 따라 10월인 경우 09로 표기되므로 +1 필요
-    const todayDate = '0' + today.getDate().toString().slice(-2);
+    const todayDate = ('0' + today.getDate().toString()).slice(-2);
     const today2 = todayYear+'-'+todayMonth+'-'+todayDate; //0000-00-00
 
     const [selectedDate, setSelectedDate] = useState(today2); //0000-00-00
     const [currentYear, setCurrentYear] = useState(todayYear); //2024
     const [currentMonth, setCurrentMonth] = useState(today.getMonth()+1); //앞자리 0없이 설정, +1 필요
     
-    console.log();
+    console.log('todayDate : ', todayDate);
 
     const getDaysInMonth = (year, month) => {
         const date = new Date(year, month, 0); //month = 10 인 경우, 월 인덱스가 0부터 시작하므로 9월을 의미 //0의 경우 해당 월의 이전 달의 마지막 날짜를 출력, 즉 month = 10인 경우 11월의 이전 달의 마지막 날짜 10월 31일 반환
@@ -165,7 +165,7 @@ const ScheduleHome = () => {
                                 { id: 'PD', label: '라리가' },
                                 { id: 'BL1', label: '분데스리가' },
                                 { id: 'SA', label: '세리에' },
-                                { id: 'FL1', label: '리그앙' },
+                                { id: 'FL1', label: '리그 1' },
                             ]}
                             renderItem={({ item }) => (
                                 <TouchableOpacity 
@@ -200,16 +200,24 @@ const ScheduleHome = () => {
                             data={daysInMonth}
                             renderItem={({ item }) => (
                                 <TouchableOpacity
-                                    style={styles.dateItem}
+                                    style={[styles.dateItem, {backgroundColor : (0 + item.toString()).slice(-2) == selectedDate.slice(-2) ? '#73C899' : '#C7E9D6'}]}
                                     onPress={() => {
                                         onChangeDay(item);
+                                        // console.log('0 + item : ', (0 + item.toString()).slice(-2) );
+                                        // console.log('selectedDate.slice(-2) : ', selectedDate.slice(-2));
+                                        // (0 + item.toString()).slice(-2) == selectedDate.slice(-2) ? 'white' : 'black'
                                     }}
                                 >
                                     {/* <Text style={styles.dateText}>{item}{getDayName(item)}</Text> */}
-                                    <Text style={styles.dateText}>
+                                    <Text style={[styles.dateText, 
+                                        {color : (0 + item.toString()).slice(-2) == selectedDate.slice(-2) ? 'white' : 'black'}, 
+                                        {fontWeight : (0 + item.toString()).slice(-2) == selectedDate.slice(-2) ? 'bold' : ''}]}>
                                         <Text>{('0' + item).slice(-2)}</Text>
                                         {'\n'} {/* 줄바꿈 */}
-                                        <Text style={styles.dayText}>{getDayName(item)}</Text> {/* 요일 추가 */}
+                                        <Text style={[styles.dayText, 
+                                            {color : (0 + item.toString()).slice(-2) == selectedDate.slice(-2) ? 'white' : 'gray'}]}>
+                                            {getDayName(item)}
+                                        </Text> {/* 요일 추가 */}
                                     </Text>
                                 </TouchableOpacity>
                             )}

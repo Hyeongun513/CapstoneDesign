@@ -47,7 +47,7 @@ const MatchSchedule_FL1 = (props) => {
           source={require('../../../assets/icon/ligue1.png')} // assets에서 아이콘 불러오기
           style={{width: 30, height: 30}}
         />
-        <Text style={{fontSize:20, color:'black', fontWeight:'bold', marginBottom:5}}> 리그앙 </Text>
+        <Text style={{fontSize:20, color:'black', fontWeight:'bold', marginBottom:5}}> 리그 1 </Text>
       </View>
 
       <View style={{justifyContent:'center', alignItems:'center'}}>

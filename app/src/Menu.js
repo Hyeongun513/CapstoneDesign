@@ -48,6 +48,20 @@ const Menu = () => {
                 borderRadius: 10,
                 margin: 10,
                 marginTop: 20,
+                }} onPress={() => { router.navigate('./Test2'); }}>
+                <Text style={{fontSize: 25}}>경기 채팅</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{
+                backgroundColor: "skyblue",
+                width: 200,
+                height: 50,
+                borderRadius: 8,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 10,
+                margin: 10,
+                marginTop: 20,
                 }} onPress={() => { router.navigate('./Test'); }}>
                 <Text style={{fontSize: 25}}>데이터 센터</Text>
                 </TouchableOpacity>
@@ -66,9 +80,9 @@ const Menu = () => {
                 <Text style={{fontSize: 25}}>홈 이동</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{flex: 1, flexDirection:'column-reverse', alignItems: 'center'}}>
+            {/* <View style={{flex: 1, flexDirection:'column-reverse', alignItems: 'center'}}>
                 <Link href=''>링크Link</Link>
-            </View>
+            </View> */}
         </View>
     );
 };
