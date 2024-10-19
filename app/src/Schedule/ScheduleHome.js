@@ -87,7 +87,7 @@ const ScheduleHome = () => {
                     </View>
                     <View style={{alignItems:'center'}}>
                         <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={() => { router.replace('../Menu'); }}>
-                            <Text style={{fontSize: 25}}>메뉴 이동</Text>
+                            <Text style={{fontSize: 25}}>메인 메뉴</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

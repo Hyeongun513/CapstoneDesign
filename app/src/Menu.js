@@ -48,8 +48,8 @@ const Menu = () => {
                 borderRadius: 10,
                 margin: 10,
                 marginTop: 20,
-                }} onPress={() => { router.navigate('./Test2'); }}>
-                <Text style={{fontSize: 25}}>경기 채팅</Text>
+                }} onPress={() => { router.replace('./Community/NicknameMenu'); }}>
+                <Text style={{fontSize: 25}}>커뮤니티</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{
@@ -62,8 +62,22 @@ const Menu = () => {
                 borderRadius: 10,
                 margin: 10,
                 marginTop: 20,
-                }} onPress={() => { router.navigate('./Test'); }}>
-                <Text style={{fontSize: 25}}>데이터 센터</Text>
+                }} onPress={() => { router.navigate('./Community/Test2'); }}>
+                <Text style={{fontSize: 25}}>데이터 센터(테2)</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{
+                backgroundColor: "skyblue",
+                width: 200,
+                height: 50,
+                borderRadius: 8,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 10,
+                margin: 10,
+                marginTop: 20,
+                }} onPress={() => { router.navigate('./Community/TodayMatch'); }}>
+                <Text style={{fontSize: 25}}> 오늘경기 </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{

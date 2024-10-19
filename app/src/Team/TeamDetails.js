@@ -8,7 +8,7 @@ const Tab = createBottomTabNavigator(); //하단 메뉴 버튼
 
 const TeamDetails = () => {
     const { teamId } = useLocalSearchParams();  // URL에서 teamId 파라미터를 가져옴
-    console.log("Received teamId:", teamId);
+    // console.log("Received teamId:", teamId);
 
     const [teamInfo, setTeamInfo] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -47,7 +47,7 @@ const TeamDetails = () => {
                         'X-Auth-Token': '22ec1616e6ee4aa5b4b1ea5095555277',
                     },
                 });
-                console.log(response.data); // 응답 구조 확인을 위한 로그
+                // console.log(response.data); // 응답 구조 확인을 위한 로그
 
                 // const scheduledMatches = response.data.matches.filter(match => match.status === "SCHEDULED");
                 const scheduledMatches = response.data.matches.filter( // SCHEDULED 또는 TIMED 상태의 경기 필터링

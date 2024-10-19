@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Image } from 'react-native';
 import axios from 'axios';
 
 const Test2 = () => {
@@ -12,16 +12,12 @@ const Test2 = () => {
         const response = await axios.get(
           'https://api.football-data.org/v4/matches',
           {
-            params: {
-              dateFrom: '2024-11-02', // 오늘 날짜로 변경
-              dateTo: '2024-11-02',
-            },
             headers: {
               'X-Auth-Token': '22ec1616e6ee4aa5b4b1ea5095555277',
             },
           }
         );
-        console.log("Matches data:", response.data); // 응답 데이터를 출력하여 확인
+        console.log("Matches data:", response.data);
         setMatches(response.data.matches);
         setLoading(false);
       } catch (error) {
@@ -38,7 +34,7 @@ const Test2 = () => {
   }
 
   if (matches.length === 0) {
-    return <Text>오늘은 경기가 없습니다</Text>; // 매치가 없을 때 출력
+    return <Text>오늘은 경기가 없습니다</Text>;
   }
 
   return (
@@ -47,7 +43,21 @@ const Test2 = () => {
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
         <View>
-          <Text>{`${item.homeTeam.name} vs ${item.awayTeam.name}`}</Text>
+          {/* 팀 로고와 경기 정보 */}
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              source={{ uri: `https://www.example.com/logos/${item.homeTeam.id}.png` }}
+              style={{ width: 50, height: 50 }}
+            />
+            <Text>{`${item.homeTeam.name} vs ${item.awayTeam.name}`}</Text>
+            {console.log(item.competition.name)}
+          </View>
+
+          {/* 리그 정보 */}
+          <Text>{`League: ${item.competition.name}`}</Text>
+
+          {/* 스코어 출력 */}
+          <Text>{`Score: ${item.score.fullTime.homeTeam} - ${item.score.fullTime.awayTeam}`}</Text>
         </View>
       )}
     />
