@@ -56,3 +56,4 @@ Join our community of developers creating universal apps.
 - 3차 업로드 : 24.10.08
 - 4차 업로드 : 24.10.15
 - 5차 업로드 : 24.10.21
+- 6차 업로드 : 24.10.22

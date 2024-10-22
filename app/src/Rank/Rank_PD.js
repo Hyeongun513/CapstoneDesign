@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Link, router } from "expo-router";
 
@@ -32,7 +32,11 @@ const Rank_PD = () => {
     fetchStandings();
   }, []);
 
-  if (loading) return <Text>Loading...</Text>;
+  if (loading) return (
+    <View style={{justifyContent: 'center'}}>
+      <ActivityIndicator size="large" />
+    </View>
+  );
   if (error) return <Text>Error: {error.message}</Text>;
 
   const Rank_Color = ( rank ) => { //챔스, 유로파, 강등 색상 출력

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert, Image, Dimensions } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert, Image, Dimensions, ActivityIndicator  } from 'react-native';
 import { Link, router } from "expo-router"; 
 import TodayMatch from './TodayMatch';
 
@@ -79,7 +79,7 @@ const NicknameMenu = () => {
                 <Text style={{fontSize: 20}}>채팅</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.communityButton} onPress={() => { router.replace('../Menu'); }}>
+            <TouchableOpacity style={styles.communityButton} onPress={() => { router.push(`./ForumHome?nickname=${nickname}`); }}>
                 <Text style={{fontSize: 20}}>게시판</Text>
             </TouchableOpacity>
             </View> //nickname이 입력된 경우 이동 기능 활성화

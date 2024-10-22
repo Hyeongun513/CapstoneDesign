@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 
 const TodayMatch = (props) => {
@@ -31,7 +31,11 @@ const TodayMatch = (props) => {
   }, []);
 
   if (loading) {
-    return <Text>로딩중...</Text>;
+    return (
+      <View style={[styles.bigContainer, {width: Component == 'NicknameMenu' ? '95%' : '98%', height: Component == 'NicknameMenu' ? 240 : 125, justifyContent:'center'}]}>
+        <ActivityIndicator size="large" color="green" />
+      </View>
+    );
   }
 
   if (matches.length === 0) {

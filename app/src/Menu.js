@@ -63,7 +63,7 @@ const Menu = () => {
                 margin: 10,
                 marginTop: 20,
                 }} onPress={() => { router.navigate('./Community/Test2'); }}>
-                <Text style={{fontSize: 25}}>데이터 센터(테2)</Text>
+                <Text style={{fontSize: 25}}>데이터 센터</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{
