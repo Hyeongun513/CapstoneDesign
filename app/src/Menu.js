@@ -76,6 +76,20 @@ const Menu = () => {
                 borderRadius: 10,
                 margin: 10,
                 marginTop: 20,
+                }} onPress={() => { router.navigate('./Community/Test4'); }}>
+                <Text style={{fontSize: 25}}>테스트</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{
+                backgroundColor: "skyblue",
+                width: 200,
+                height: 50,
+                borderRadius: 8,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 10,
+                margin: 10,
+                marginTop: 20,
                 }} onPress={() => { router.navigate('./Community/TodayMatch'); }}>
                 <Text style={{fontSize: 25}}> 오늘경기 </Text>
                 </TouchableOpacity>

@@ -50,7 +50,7 @@ const ScheduleHome = () => {
 
     const changeMonth = (increment) => { //CurrentMonth, CurrentYear값 변경
         let newMonth = currentMonth + increment;
-        let newYear = currentYear;
+        let newYear = Number(currentYear);
 
         if (newMonth > 12) {
             newMonth = 1;
@@ -232,7 +232,7 @@ const ScheduleHome = () => {
                     {printSchedule()}
 
                     <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={() => { router.replace('../Menu'); }}>
-                        <Text style={{fontSize: 25}}>메뉴 이동</Text>
+                        <Text style={{fontSize: 25}}>메인 메뉴</Text>
                     </TouchableOpacity>
                 </View> 
             }
