@@ -9,6 +9,7 @@ const ForumHome = () => {
   const [posts, setPosts] = useState([]);      // 게시글 리스트
   const [selectedPost, setSelectedPost] = useState(null); // 선택한 게시글
   const [comment, setComment] = useState('');  // 댓글 입력
+  const [commentData, setCommentData] = useState([]) // 댓글 구조 저장
   const [showComment, setShowComment] = useState('show'); //댓글창 출력 여부
 
   const [modalVisible, setModalVisible] = useState(false);  // 모달 표시 여부
@@ -26,6 +27,27 @@ const ForumHome = () => {
 
     return () => postsRef.off(); // 데이터 구독 해제
   }, []);
+
+  // Firebase에서 특정 게시글의 댓글 불러오기
+  useEffect(() => {
+    if (!selectedPost) return; // 선택된 포스트가 없으면 종료
+  
+    const postRef = database.ref(`posts/${selectedPost.id}/comments`);
+    
+    postRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      const parsedComments = data 
+        ? Object.entries(data).map(([commentId, comment]) => ({
+            id: commentId, // comment의 고유 ID 추가
+            ...comment,
+          }))
+        : [];
+  
+        setCommentData(parsedComments); // comments 상태 업데이트
+    });
+  
+    return () => postRef.off(); // 데이터 구독 해제
+  }, [selectedPost]); // selectedPostId가 변경될 때마다 실행
 
   // 게시글 삭제 확인 모달 표시 함수
   const confirmDeletePost = (post) => {
@@ -50,6 +72,66 @@ const ForumHome = () => {
       Alert.alert('오류', '댓글을 입력해주세요.');
     }
   };
+
+      //특정 댓글 삭제 함수(관리자 모드로 삭제)
+      const deleteComment = (commentId) => {
+        Alert.alert(
+          "댓글 삭제",
+          "관리자 권한으로 해당 댓글을 즉시 삭제합니다.",
+          [
+            {
+              text: "취소",
+              style: "cancel"
+            },
+            {
+              text: "삭제", onPress: () => {
+                // Firebase에서 댓글 삭제
+                const postRef = database.ref(`posts/${selectedPost.id}/comments/${commentId}`);
+                postRef.remove()
+                  .then(() => {
+                    Alert.alert("삭제 완료", "해당 댓글이 성공적으로 삭제되었습니다.");
+                    // setSelectedPost(null); // 삭제 후 목록으로 돌아가기
+                  })
+                  .catch((error) => {
+                    Alert.alert("오류", "댓글 삭제 중 오류가 발생했습니다.");
+                    console.error(error);
+                  });
+              }
+            }
+          ],
+          { cancelable: false }
+        );
+      };
+
+    //전체 댓글 삭제 함수(관리자 모드로 삭제)
+    const deleteAllComment = () => {
+      Alert.alert(
+        "전체 댓글 삭제",
+        "관리자 권한으로 해당 게시글의 모든 댓글을 즉시 삭제합니다.",
+        [
+          {
+            text: "취소",
+            style: "cancel"
+          },
+          {
+            text: "삭제", onPress: () => {
+              // Firebase에서 댓글 삭제
+              const postRef = database.ref(`posts/${selectedPost.id}/comments`);
+              postRef.remove()
+                .then(() => {
+                  Alert.alert("삭제 완료", "전체 댓글이 성공적으로 삭제되었습니다.");
+                  setSelectedPost(null); // 삭제 후 목록으로 돌아가기
+                })
+                .catch((error) => {
+                  Alert.alert("오류", "댓글 삭제 중 오류가 발생했습니다.");
+                  console.error(error);
+                });
+            }
+          }
+        ],
+        { cancelable: false }
+      );
+    };
 
   // 게시글 삭제 함수 (비밀번호 검증 포함)
   const deletePost = () => {
@@ -151,7 +233,6 @@ const ForumHome = () => {
               keyExtractor={(item) => item.id}
               ListEmptyComponent={<Text>작성된 게시글이 없습니다.</Text>}
             />
-
               <TouchableOpacity style={styles.writeButton} onPress={() => { router.replace(`./ForumPost?nickname=${nickname}`); }}>
                 <Text style={{ fontWeight: 'bold' }}>게시글 작성하기</Text>
               </TouchableOpacity>
@@ -164,7 +245,8 @@ const ForumHome = () => {
         renderItem={null}
         ListEmptyComponent = { () => (
         <View style={{ flex: 1, margin: 5 }}>
-          {console.log('SelectedPost 값 : ', selectedPost)}
+          {/* {console.log('selectedPost.comments 값 : ', selectedPost.comments)}
+          {console.log('commentData 값 : ', commentData)} */}
           
           {/* 선택된 게시글과 댓글 보기 */}
           {/* 제목 */}
@@ -216,12 +298,23 @@ const ForumHome = () => {
           <View style={styles.bigCommentContainer}>
             {showComment == 'show' ? 
             <FlatList
-              data={selectedPost.comments ? Object.values(selectedPost.comments) : []}
+              // data={selectedPost.comments ? Object.values(selectedPost.comments) : []}
+              data={commentData ? Object.values(commentData) : []}
               renderItem={({ item }) => (
                 <View style={styles.smallCommentContainer}>
-                  <Text style={{fontWeight: 'bold', marginBottom: 5}}>{item.nickname}</Text>
+
+                  <View style={{flexDirection:'row'}}>
+                    <Text style={{fontWeight: 'bold', marginBottom: 5}}>{item.nickname}</Text>
+                    {nickname == '관리자' && 
+                    <TouchableOpacity style={styles.commentDeleteButton} onPress={() => deleteComment(item.id)} >
+                      <Text style={{ color: 'red', fontWeight: 'bold', marginBottom: 2 }}> X </Text>
+                    </TouchableOpacity>
+                  }
+                  </View>
+
                   <Text>{item.text}</Text>
                   <Text style={{fontSize: 10, color: '#5F5F5F'}}>{new Date(item.timestamp).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}</Text>
+                  {/* <Text>{item.id}</Text> */}
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -249,13 +342,22 @@ const ForumHome = () => {
             {/* 관리자 메뉴 */}
             {nickname == '관리자' && 
             <View style={styles.bigCommentContainer}>
+
               <Text style={{color: 'red', fontSize: 25, marginBottom: 10}}> 관리자 메뉴 </Text>
-              <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
+              
+              <View style={{flexDirection:'row', justifyContent: 'space-between', alignItems:'center', marginVertical: 2}}>
                 <Text style={{fontWeight:'bold', marginLeft: 5, fontSize: 15}}> 게시글 비밀번호 : {selectedPost.password}</Text>
-                <TouchableOpacity style={[styles.deleteButton, {marginVertical: 0, padding: 7}]} onPress={() => deletePost_Managermod(selectedPost.id)} >
+                <TouchableOpacity style={[styles.deleteButton, {width: 130, marginVertical: 0, padding: 7}]} onPress={() => deletePost_Managermod(selectedPost.id)} >
                   <Text style={{ color: 'white', fontWeight: 'bold' }}>게시글 즉시 삭제</Text>
                 </TouchableOpacity>
               </View>
+              <View style={{flexDirection:'row', justifyContent: 'space-between', alignItems:'center'}}>
+                <View />
+                <TouchableOpacity style={[styles.deleteButton, {width: 130, marginVertical: 0, padding: 7}]} onPress={() => deleteAllComment(selectedPost.id)} >
+                  <Text style={{ color: 'white', fontWeight: 'bold' }}>전체 댓글 즉시 삭제</Text>
+                </TouchableOpacity>
+              </View>
+
             </View>
             }
         </View>
@@ -397,6 +499,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     marginVertical: 5,
+  },
+  commentDeleteButton: {
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 20,
+    height: 20,
   },
   postNickname: {
     fontStyle: 'italic',

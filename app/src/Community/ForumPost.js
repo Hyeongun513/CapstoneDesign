@@ -83,7 +83,8 @@ const ForumPost = () => {
           value={title} 
           onChangeText={setTitle} 
           placeholder="제목" 
-          style={styles.titleInput} 
+          style={styles.titleInput}
+          maxLength={50}
         /> 
 
       <TextInput 
