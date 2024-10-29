@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   matchItem: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: 'gray',
   },
   team: {
     fontSize: 16,

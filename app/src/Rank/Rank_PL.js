@@ -72,7 +72,7 @@ const Rank_PL = () => {
             <TouchableOpacity 
               style={styles.rankItem}
               // onPress={() => router.navigate('./TeamDetails', { teamId: item.team.id })}
-              onPress={() => router.push(`../Team/TeamDetails?teamId=${item.team.id}`)}
+              onPress={() => router.push(`../Team/TeamDetails?teamId=${item.team.id}&rank=${item.position}`)}
             >
 
             <View style={styles.rankItem}>
